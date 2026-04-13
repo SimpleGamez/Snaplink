@@ -1,4 +1,4 @@
-# Snaplink URL Shortener
+# Snaplink
 
 A lightning-fast, highly-polished URL shortener and management dashboard built natively without heavy frameworks.
 
