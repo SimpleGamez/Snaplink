@@ -75,5 +75,3 @@ Ensure you have proper security rules configured in your Firebase Realtime datab
 - **QR Code Generation**: Native local Canvas plotting so users can easily share links in real life.
 - **No Paywalls**: Full features available directly upon signup.
 
-## License
-MIT
