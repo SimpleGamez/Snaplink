@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNAPLINK · URL Shortener SaaS</title>
+  <meta name="description" content="SNAPLINK — A developer-grade URL shortening tool. Host and track vanity links instantly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- EDGE GLOWS -->
+  <div class="edge-glow edge-glow-left"></div>
+  <div class="edge-glow edge-glow-right"></div>
+
+  <!-- ═══ NAV ═══════════════════════════════════════════════════════ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">SNAPLINK</span>
+        <span class="logo-bracket">]</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-item" id="navFeatures"><span class="key">[F]</span> FEATURES</a>
+        <button class="nav-item" id="navSettings" style="display:none;"><span class="key">[*]</span> ACCOUNT</button>
+      </div>
+      <div class="nav-meta" id="authSection">
+        <button class="nav-item" id="navAuthBtn">
+          <span class="key">[A]</span> <span id="navAuthText">LOG IN</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ MARKETING VIEW ════════════════════════════════════════════════ -->
+  <div id="marketingView">
+    <header class="hero" id="hero">
+      <div class="grid-h grid-h-1"></div><div class="grid-h grid-h-2"></div>
+      <div class="grid-v grid-v-1"></div><div class="grid-v grid-v-2"></div>
+      <span class="cross cross-tl"></span><span class="cross cross-tr"></span>
+      <span class="cross cross-bl"></span><span class="cross cross-br"></span>
+
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-label">/ URL SHORTENER</div>
+          <h1 class="hero-title">Make every<br/>link count.</h1>
+          <p class="hero-desc">Paste a long URL, get a clean short link. Create custom aliases and track advanced analytics — all hosted securely on your database.</p>
+          <div class="hero-tags">
+            <span class="tag">LIGHTNING FAST</span>
+            <span class="tag">NO PAYWALLS</span>
+            <span class="tag">UNLIMITED ALIASES</span>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="auth-promo">
+            <h2>Ready to scale?</h2>
+            <p>Create an account to start managing and tracking your short links.</p>
+            <button class="btn-primary" id="heroSignupBtn"><span>GET STARTED FOR FREE</span></button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="features" id="features">
+      <div class="features-header">
+        <span class="section-label">/ FEATURES </span>
+        <h2 class="section-title">Everything you need.<br/>Nothing you don't.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-num">01</div>
+          <h3 class="feat-title">INSTANT SHORTENING</h3>
+          <p class="feat-desc">Shorten any URL in milliseconds directly through the browser.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-num">02</div>
+          <h3 class="feat-title">CLICK ANALYTICS</h3>
+          <p class="feat-desc">Track every visit reliably in realtime.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-num">03</div>
+          <h3 class="feat-title">CUSTOM ALIASES</h3>
+          <p class="feat-desc">Use personalized vanity links (i.e. snaplink.to/your-brand).</p>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+
+  <!-- ═══ APP VIEW ══════════════════════════════════════════════════════ -->
+  <div id="appView" style="display:none;">
+    <div class="app-header">
+      <div class="app-header-inner">
+        <!-- APP INPUT -->
+        <div class="input-panel app-input-panel">
+          <div class="panel-header">
+            <span class="panel-label">/ CREATE LINK</span>
+          </div>
+          <div class="input-group">
+            <div class="input-split">
+              <div class="input-col dest-col">
+                <label class="input-label">DESTINATION URL</label>
+                <div class="input-row">
+                  <input type="url" id="urlInput" class="url-input" placeholder="https://your-long-url.com..." autocomplete="off" spellcheck="false" />
+                </div>
+              </div>
+              <div class="input-col alias-col">
+                <label class="input-label">CUSTOM ALIAS</label>
+                <div class="input-row alias-row" id="aliasRow">
+                  <span class="alias-prefix">snaplink.to/</span>
+                  <input type="text" id="aliasInput" class="url-input alias-field" placeholder="custom-alias" autocomplete="off" spellcheck="false" />
+                </div>
+                </div>
+              </div>
+            </div>
+            
+            <p class="form-error" id="formError"></p>
+            <button type="button" class="btn-primary" id="shortenBtn" style="margin-top:20px;">
+              <span>GENERATE LINK</span>
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
+          <!-- RESULT CARD -->
+          <div class="result-panel" id="resultCard" style="display:none;">
+             <div class="result-divider"><span>OUTPUT</span></div>
+             <div class="result-row">
+               <div class="result-url-wrap">
+                 <span class="result-label">SHORT URL</span>
+                 <span class="result-url" id="resultShortUrl"></span>
+               </div>
+               <div class="result-btns">
+                 <button class="btn-icon-sq" id="copyBtn" title="Copy"><svg viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="9" height="9" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M2 11V3a1 1 0 011-1h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+                 <button class="btn-icon-sq" id="qrBtn" title="QR Code"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx=".5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx=".5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx=".5" stroke="currentColor" stroke-width="1.2"/><rect x="2.5" y="2.5" width="3" height="3" fill="currentColor"/><rect x="10.5" y="2.5" width="3" height="3" fill="currentColor"/><rect x="2.5" y="10.5" width="3" height="3" fill="currentColor"/><rect x="9" y="9" width="6" height="6" rx=".5" stroke="currentColor" stroke-width="1.2"/><rect x="10.5" y="10.5" width="3" height="3" fill="currentColor"/></svg></button>
+               </div>
+             </div>
+             <p class="result-orig" id="resultOriginalUrl"></p>
+             <div class="qr-panel" id="qrPanel" style="display:none;"><canvas id="qrCanvas" width="140" height="140"></canvas></div>
+          </div>
+        </div>
+
+        <div class="stats-bar app-stats">
+          <div class="stat-item"><span class="stat-val" id="statTotal">0</span><span class="stat-key">TOTAL LINKS</span></div><div class="stat-sep"></div>
+          <div class="stat-item"><span class="stat-val" id="statClicks">0</span><span class="stat-key">TOTAL CLICKS</span></div><div class="stat-sep"></div>
+          <div class="stat-item"><span class="stat-val" id="statToday">0</span><span class="stat-key">TODAY</span></div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD TABLE -->
+      <section class="dashboard" id="dashboard" style="padding-top:40px;">
+        <div class="dashboard-header-row">
+          <div class="dash-left">
+            <span class="section-label">/ DASHBOARD</span>
+            <h2 class="section-title" style="margin-bottom:0">MY LINKS</h2>
+          </div>
+          <div class="dash-controls">
+            <div class="search-wrap">
+              <svg class="search-icon" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              <input type="text" id="searchInput" class="search-input" placeholder="SEARCH LINKS..." />
+            </div>
+            <button class="btn-danger" id="clearAllBtn">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5 4V2.5A.5.5 0 015.5 2h5a.5.5 0 01.5.5V4M6 7v5M10 7v5M3.5 4l.5 9.5A.5.5 0 004.5 14h7a.5.5 0 00.5-.5L12.5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              CLEAR ALL
+            </button>
+          </div>
+        </div>
+        <div class="table-head">
+          <span class="th th-num">#</span>
+          <span class="th th-short">SHORT URL</span>
+          <span class="th th-orig">ORIGINAL</span>
+          <span class="th th-clicks">CLICKS</span>
+          <span class="th th-date">CREATED</span>
+          <span class="th th-actions">—</span>
+        </div>
+        <div class="links-table" id="linksList"></div>
+        <div class="links-empty" id="linksEmpty">
+          <p class="empty-title">Dashboard is empty.</p>
+          <p class="empty-sub">Create your first link above to populate the dashboard.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">[SNAPLINK]</span>
+        <span class="footer-copy">MADE BY SIMPLEGAMEZ</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ MODALS ═══════════════════════════════════════════════════════ -->
+  
+  <!-- AUTH MODAL -->
+  <div class="auth-modal" id="authModal">
+    <div class="auth-modal-content">
+      <div class="auth-header">
+        <span class="panel-label">/ AUTHENTICATION</span>
+        <button class="btn-icon-sq" id="closeAuthBtn" title="Close">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8m-8 0l8-8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <form class="auth-form" id="authForm">
+        <h3 class="auth-title" id="authTitle">Sign In</h3>
+        <div class="input-row auth-input-row">
+          <input type="email" id="authEmail" class="url-input" placeholder="EMAIL ADDRESS" required />
+        </div>
+        <div class="input-row auth-input-row" style="margin-top:12px;">
+          <input type="password" id="authPassword" class="url-input" placeholder="PASSWORD" required minlength="6" />
+        </div>
+        <p class="form-error" id="authError"></p>
+        <button type="submit" class="btn-primary" id="authSubmitBtn">
+          <span>LOG IN</span>
+        </button>
+      </form>
+      <div class="auth-footer">
+        <span class="auth-switch-text" id="authSwitchText">No account?</span>
+        <button type="button" class="auth-switch-btn" id="authSwitchBtn">[ SIGN UP ]</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCOUNT SETTINGS MODAL -->
+  <div class="auth-modal" id="settingsModal">
+    <div class="auth-modal-content">
+      <div class="auth-header">
+        <span class="panel-label">/ ACCOUNT SETTINGS</span>
+        <button class="btn-icon-sq" id="closeSettingsBtn" title="Close"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8m-8 0l8-8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="auth-form" style="padding:32px 24px;">
+        <div class="settings-profile">
+          <div class="user-avatar" id="settingsAvatar">U</div>
+          <div class="user-info">
+            <div class="user-email" id="settingsEmail">user@example.com</div>
+          </div>
+        </div>
+        <button class="btn-secondary" id="signOutBtn" style="width:100%;margin-top:20px;">SIGN OUT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
